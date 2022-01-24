@@ -9,6 +9,7 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
+import GoalItem from "./components/goalItem";
 
 export default function App() {
   const [enteredGoal, setenteredGoal] = useState("");
@@ -42,11 +43,7 @@ export default function App() {
       <FlatList
         keyExtractor={(item, index) => item.key}
         data={healthGoals}
-        renderItem={(itemData) => (
-          <View style={styles.list}>
-            <Text>{itemData.item.value}</Text>
-          </View>
-        )}
+        renderItem={(itemData) => <GoalItem title={itemData.item.value} />}
       />
       {/* <ScrollView style={styles.list}>
         {healthGoals.map((goal, index) => (
@@ -77,9 +74,5 @@ const styles = StyleSheet.create({
   },
   list: {
     backgroundColor: "blue",
-  },
-  listItem: {
-    padding: 10,
-    backgroundColor: "#ccc",
   },
 });
