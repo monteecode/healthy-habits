@@ -15,9 +15,12 @@ import GoalInput from "./components/goalInput";
 export default function App() {
   const [enteredGoal, setenteredGoal] = useState("");
   const [healthGoals, sethealthGoals] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
+
   const goalInputHandler = (enteredText) => {
     setenteredGoal(enteredText);
   };
+
   const addGoalHandler = () => {
     // setenteredGoal([...healthGoals, enteredGoal]);
     // sethealthGoals((currentGoals) => [...currentGoals, enteredGoal]);
@@ -26,9 +29,22 @@ export default function App() {
       { key: Math.random().toString(), value: enteredGoal },
     ]);
   };
+
+  const onDelete = (id) => {
+    console.log("DOES DELETE WORK!!!");
+    sethealthGoals((currentGoals) =>
+      currentGoals.filter((goal) => goal.key != id)
+    );
+  };
+
+  const addModeHandler = () => {
+    setIsAddMode(true);
+  };
   return (
     <View style={styles.container}>
+      <Button title="Add new goal" onPress={addModeHandler} />
       <GoalInput
+        visible={isAddMode}
         goalInputHandler={goalInputHandler}
         enteredGoal={enteredGoal}
         addGoalHandler={addGoalHandler}
@@ -49,7 +65,13 @@ export default function App() {
       <FlatList
         keyExtractor={(item, index) => item.key}
         data={healthGoals}
-        renderItem={(itemData) => <GoalItem title={itemData.item.value} />}
+        renderItem={(itemData) => (
+          <GoalItem
+            title={itemData.item.value}
+            goalId={itemData.item.key}
+            onDelete={onDelete}
+          />
+        )}
       />
       {/* <ScrollView style={styles.list}>
         {healthGoals.map((goal, index) => (
