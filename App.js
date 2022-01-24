@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -17,7 +18,11 @@ export default function App() {
   };
   const addGoalHandler = () => {
     // setenteredGoal([...healthGoals, enteredGoal]);
-    sethealthGoals((currentGoals) => [...currentGoals, enteredGoal]);
+    // sethealthGoals((currentGoals) => [...currentGoals, enteredGoal]);
+    sethealthGoals((currentGoals) => [
+      ...currentGoals,
+      { key: Math.random().toString(), value: enteredGoal },
+    ]);
   };
   return (
     <View style={styles.container}>
@@ -34,13 +39,22 @@ export default function App() {
           onPress={addGoalHandler}
         />
       </View>
-      <ScrollView style={styles.list}>
+      <FlatList
+        keyExtractor={(item, index) => item.key}
+        data={healthGoals}
+        renderItem={(itemData) => (
+          <View style={styles.list}>
+            <Text>{itemData.item.value}</Text>
+          </View>
+        )}
+      />
+      {/* <ScrollView style={styles.list}>
         {healthGoals.map((goal, index) => (
           <View key={index} style={styles.listItem}>
             <Text>{`${index + 1}. ${goal}`}</Text>
           </View>
         ))}
-      </ScrollView>
+      </ScrollView> */}
     </View>
   );
 }
