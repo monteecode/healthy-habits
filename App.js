@@ -10,6 +10,7 @@ import {
   FlatList,
 } from "react-native";
 import GoalItem from "./components/goalItem";
+import GoalInput from "./components/goalInput";
 
 export default function App() {
   const [enteredGoal, setenteredGoal] = useState("");
@@ -27,7 +28,12 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      <View style={{ backgroundColor: "red", width: "100%" }}>
+      <GoalInput
+        goalInputHandler={goalInputHandler}
+        enteredGoal={enteredGoal}
+        addGoalHandler={addGoalHandler}
+      />
+      {/* <View style={{ backgroundColor: "red", width: "100%" }}>
         <TextInput
           placeholder="Enter health goal"
           onChangeText={goalInputHandler}
@@ -39,7 +45,7 @@ export default function App() {
           style={{ marginBottom: 20 }}
           onPress={addGoalHandler}
         />
-      </View>
+      </View> */}
       <FlatList
         keyExtractor={(item, index) => item.key}
         data={healthGoals}
@@ -60,17 +66,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 50,
     backgroundColor: "#fff",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "80%",
-    marginBottom: 10,
-
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    padding: 10,
   },
   list: {
     backgroundColor: "blue",
