@@ -28,6 +28,8 @@ export default function App() {
       ...currentGoals,
       { key: Math.random().toString(), value: enteredGoal },
     ]);
+    setenteredGoal("");
+    setIsAddMode(false);
   };
 
   const onDelete = (id) => {
@@ -40,14 +42,21 @@ export default function App() {
   const addModeHandler = () => {
     setIsAddMode(true);
   };
+
+  const cancelGoalHandler = () => {
+    setIsAddMode(false);
+  };
+
   return (
     <View style={styles.container}>
       <Button title="Add new goal" onPress={addModeHandler} />
+
       <GoalInput
         visible={isAddMode}
         goalInputHandler={goalInputHandler}
         enteredGoal={enteredGoal}
         addGoalHandler={addGoalHandler}
+        onCancel={cancelGoalHandler}
       />
       {/* <View style={{ backgroundColor: "red", width: "100%" }}>
         <TextInput

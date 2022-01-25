@@ -4,18 +4,24 @@ import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
 const GoalInput = (props) => {
   return (
     <Modal visible={props.visible} animationType="slide">
-      <View style={{ backgroundColor: "red", width: "100%" }}>
+      <View style={styles.inputContainer}>
         <TextInput
           placeholder="Enter health goal"
           onChangeText={props.goalInputHandler}
           value={props.enteredGoal}
-          style={styles.inputContainer}
+          style={styles.input}
         />
-        <Button
-          title="ADD"
-          style={{ marginBottom: 20 }}
-          onPress={props.addGoalHandler}
-        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttons}>
+            <Button
+              title="What is your health goal?"
+              onPress={props.addGoalHandler}
+            />
+          </View>
+          <View style={styles.buttons}>
+            <Button title="Cancel goal" onPress={props.onCancel} color="red" />
+          </View>
+        </View>
       </View>
     </Modal>
   );
@@ -23,15 +29,23 @@ const GoalInput = (props) => {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    width: "80%",
+  },
+  input: {
     marginBottom: 10,
-
     borderBottomColor: "black",
     borderBottomWidth: 1,
     padding: 10,
+    width: "80%",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  buttons: {
+    width: "100%",
   },
 });
 export default GoalInput;
